@@ -8,7 +8,8 @@ class AgentState(TypedDict):
 
 def greeting_node(state: AgentState) -> AgentState:
     "Simple node that add a simple message to the state"
-    state['message'] = "Hey " + state["message"] + ",how is your day"
+    print(state)
+    state['msg'] = "Hey " + state["name"] + ",your age is "+ state["age"]
     return state
 
 graph=StateGraph(AgentState)
@@ -21,6 +22,7 @@ graph.set_finish_point("greeter")
 app=graph.compile()
 from IPython.display import Image, display
 display(Image(app.get_graph().draw_mermaid_png()))
-result=app.invoke({"message":"nikhil"})
-print(result["message"])
+message={"name":"Nikhil","age":25}
+result=app.invoke(message)
+print(result["name"])
 
